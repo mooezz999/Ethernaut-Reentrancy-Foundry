@@ -11,14 +11,17 @@ contract AttackTest is Test {
     function setUp() public {}
 
     function testWithdrawFunction() public {
+        vm.deal(bob, 1);
         vm.startPrank(bob);
         myAttack = new Attack();
+        vm.deal(address(myAttack), 50);
         myAttack.attack();
         uint beforeBalance = myAttack.getBalance();
         myAttack.withdrawToEOA();
         uint afterBalance = myAttack.getBalance();
         vm.stopPrank();
-        assertEq(bob.balance, beforeBalance);
+        assertEq(bob.balance, beforeBalance + 1);
         assertEq(afterBalance, 0);
+        assertEq(beforeBalance, 50);
     }
 }
