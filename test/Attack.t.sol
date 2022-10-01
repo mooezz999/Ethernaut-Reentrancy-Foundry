@@ -8,12 +8,11 @@ contract AttackTest is Test {
     address bob = address(1);
     address alice = address(2);
 
-    function setUp() public {
-        myAttack = new Attack();
-    }
+    function setUp() public {}
 
     function testWithdrawFunction() public {
         vm.startPrank(bob);
+        myAttack = new Attack();
         myAttack.attack();
         uint beforeBalance = myAttack.getBalance();
         myAttack.withdrawToEOA();

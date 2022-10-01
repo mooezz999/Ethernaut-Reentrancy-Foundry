@@ -17,7 +17,7 @@ contract Attack {
     }
 
     function withdrawToEOA() public {
-        // require(msg.sender == owner);
+        require(msg.sender == owner);
         (bool success, ) = msg.sender.call{value: address(this).balance}("");
         require(success);
     }
