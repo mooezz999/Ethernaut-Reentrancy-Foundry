@@ -6,6 +6,11 @@ contract Attack {
     Reentrance public reentrances;
     address public owner;
 
+    // constructor(address a) public {
+    //     reentrances = Reentrance(payable(a));
+    //     owner = msg.sender;
+    // }
+
     constructor() public {
         reentrances = new Reentrance();
         owner = msg.sender;
